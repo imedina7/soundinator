@@ -12,7 +12,7 @@ $soundfiles = scandir("./sounds/");
 $i = 0;
 $jsonOutput = "";
 foreach ($soundfiles as $s) {
-    if (!($s == '.' || $s == '..')) {
+    if (preg_match('/^\./', $s) == 0) {
     $filedata = base64_encode(file_get_contents("./sounds/".$s));
     $jsonOutput .= '{"id":"'.$i.'","name": "'.$s.'","data":"'.$filedata.'"},';
     $i++;
