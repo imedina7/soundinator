@@ -52,12 +52,12 @@ class DatabaseConnect {
     return false;
   }
 
-  public function userAuth($user, $passwordHash) {
+  public function userAuth($user, $password) {
     $pg = $this->getConnection();
     $row = $pg->where('user_name',[$user])->getOne('users');
     error_log("user_password = ".$row['user_password']);
     error_log("\$passwordHash = ".$passwordHash);
-    return $passwordHash == $row['user_password'];
+    return password_verify($password, $row['user_password']);
   }
 
   private function populateDbParams($url) {

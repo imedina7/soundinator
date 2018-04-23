@@ -23,10 +23,7 @@ class Auth {
     public static function validate_user( $user, $pass ) {
         $db = DatabaseConnect::getInstance();
         if ($db->userExists( $user )) {
-
-            $passHash = static::hashPass($pass);
-
-            if ($user_id = $db->userAuth( $user, $passHash ))
+            if ($user_id = $db->userAuth( $user, $pass ))
 
                 return create_session( $user_id );
 
@@ -45,12 +42,6 @@ class Auth {
         $rdis = RedisConnect::getInstance();
 
         return $rdis->deleteSession( $session_id );
-    }
-    private static function hashPass($pass){
-        $options = [
-            'salt' => "1524523701",
-        ];
-        password_hash($pass, PASSWORD_BCRYPT,$options);
     }
 }
 
