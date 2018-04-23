@@ -10,7 +10,7 @@ class Auth {
 
     private static function create_session($user_id) {
 
-        if ($session_id = openssl_random_pseudo_bytes(40)){
+        if ($session_id = bin2hex(openssl_random_pseudo_bytes(40))){
             $rdis = RedisConnect::getInstance();
             if ($rdis->addSession($session_id,$user_id))
                 return $session_id;
