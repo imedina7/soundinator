@@ -43,7 +43,9 @@ class DatabaseConnect {
     $rows = $pg->get('sounds');
     return $rows;
   }
-  
+  public function saveSounds($user_id,$sounds){
+    
+  }
   public function userExists($user) {
     $pg = $this->getConnection();
     $row = $pg->where('user_name',$user)->getOne('users');

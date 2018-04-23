@@ -57,8 +57,9 @@ function b64toBlob(b64Data, contentType, sliceSize) {
 
 ( function () {
   var sounds = new Array();
+  var loggedIn = false;
   if (localStorage.getItem("session_id") != null){
-    
+    loggedIn = true;
     var fdata = new FormData();
     fdata.append("SESSION_ID",localStorage.getItem("session_id"));
 
@@ -83,7 +84,7 @@ function b64toBlob(b64Data, contentType, sliceSize) {
   const App = new Vue({
     el: "#app",
     data: {
-      loggedIn: false,
+      loggedIn: loggedIn,
       loginform: false,
       title: "Welcome!",
       soundList: sounds
