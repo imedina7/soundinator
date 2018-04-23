@@ -3,12 +3,11 @@
 require_once __DIR__ . "/lib/session/Auth.php";
 
 header("Content-type: application/json; charset=utf-8");
-
-if (Auth::validate_session($_POST['SESSION_ID'])){
-
-} else {
+if ( ! isset($_POST['SESSION_ID']))
     die('{ "error": "Failed to validate session" }');
-}
+
+if (! Auth::validate_session($_POST['SESSION_ID']))
+    die('{ "error": "Failed to validate session" }');
 
 
 $soundfiles = scandir("./sounds/");
