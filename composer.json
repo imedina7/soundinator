@@ -1,5 +1,6 @@
 {
     "require": {
-        "seinopsys/postgresql-database-class": "^2.1"
+        "seinopsys/postgresql-database-class": "^2.1",
+        "predis/predis": "^1.1"
     }
 }

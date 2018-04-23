@@ -1,7 +1,7 @@
 <?php
 //require_once "lib/auth.php";
 
-require_once "lib/DatabaseConnect.php";
+require_once "lib/clients/DatabaseConnect.php";
 
 header("Content-type: application/json; charset=utf-8");
 
@@ -15,6 +15,7 @@ header("Content-type: application/json; charset=utf-8");
 $soundfiles = scandir("./sounds/");
 $i = 0;
 $jsonOutput = "";
+
 foreach ($soundfiles as $s) {
     if (preg_match('/^\./', $s) == 0) {
         $filedata = base64_encode(file_get_contents("./sounds/".$s));
@@ -22,12 +23,15 @@ foreach ($soundfiles as $s) {
         $i++;
     }
 }
+
 $db = DatabaseConnect::getInstance();
 $dbOutput = "";
 $soundData = $db->getSounds();
+
 foreach ($soundData as $sdata){
     $dbOutput = '{"id":"'.$sdata['sound_id'].'","name":"'.$sdata['sound_name'].'"},';
 }
+
 $jsonOutput = trim($jsonOutput,',');
 $dbOutput = trim($dbOutput,',');
 ?>{"soundList":[<?php echo $jsonOutput; ?>],"dbOutput":[<?php echo $dbOutput; ?>]}

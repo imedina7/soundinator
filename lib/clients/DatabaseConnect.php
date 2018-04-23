@@ -1,5 +1,6 @@
 <?php
-require_once __DIR__ . '/../vendor/autoload.php';;
+require_once __DIR__ . '/../../vendor/autoload.php';
+
 class DatabaseConnect {
   private $user;
   private $pass;
@@ -32,6 +33,7 @@ class DatabaseConnect {
                             $this->user,
                             $this->pass);
       $pg->pdo();
+      static::$conn = $pg;
     }
     return $pg;
   }
@@ -40,6 +42,17 @@ class DatabaseConnect {
     $pg = $this->getConnection();
     $rows = $pg->get('sounds');
     return $rows;
+  }
+  
+  public function userExists($user) {
+    $pg = $this->getConnection();
+    return $pg->where('user_name',$user)->has('users');
+  }
+
+  public function userAuth($user, $passwordHash) {
+    $pg = $this->getConnection();
+    $row = $pg->where('user_name',$user)->getOne('users');
+    return $passwordHash == $row['user_password'];
   }
 
   private function populateDbParams($url) {
