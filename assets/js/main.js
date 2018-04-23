@@ -103,6 +103,7 @@ function b64toBlob(b64Data, contentType, sliceSize) {
             } else {
               localStorage.setItem("session_id", json_response.session_id);
               console.log("session_id = " + json_response.session_id);
+              this.loggedIn = true;
             }
         }).catch(function(error){
             console.log("no funcionó: "+ error);
