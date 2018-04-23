@@ -7,8 +7,9 @@ header("Content-type: application/json; charset=utf-8");
 if (isset($_POST['username']) && isset($_POST['password'])) {
 
     if ($session_id = Auth::validate_user($_POST['username'],$_POST['password'])) {
-        error_log('sent response: ' . '{ "session_id": "'.$session_id.'" }');
-        echo '{ "session_id": "'.$session_id.'" }';
+        $outObj = Array ("session_id" => $session_id);
+        $jsonOutput = json_encode($outObj);
+        echo $jsonOutput;
     } else
         echo '{ "error": "Invalid username and/or password" }';
 }
