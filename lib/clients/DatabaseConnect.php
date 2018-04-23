@@ -46,7 +46,10 @@ class DatabaseConnect {
   
   public function userExists($user) {
     $pg = $this->getConnection();
-    return $pg->where('user_name',$user)->has('users');
+    $row = $pg->where('user_name',$user)->getOne('users');
+    if (isset($row['user_id']))
+      return $row['user_id'];
+    return false;
   }
 
   public function userAuth($user, $passwordHash) {
