@@ -14,7 +14,7 @@
     <h1>{{ title }}</h1>
       <ul>
         <li v-for="sound in soundList">
-          <a href="#" class="soundButton" :data-sound-id="sound.id" v-on:click="sound.play()">{{sound.name}}</a>
+          <a href="#" class="soundButton" :data-sound-id="sound.id" v-bind:class="{ 'playing' : sound.isplaying }" v-on:click="sound.play()">{{sound.name}}</a>
         </li>
       </ul>
   </div>

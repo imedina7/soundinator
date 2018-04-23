@@ -1,0 +1,6 @@
+.soundButton {
+    background-color: transparent;
+}
+.soundButton.playing {
+    background-color: rgba(0,255,0,0.7);
+}

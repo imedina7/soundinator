@@ -1,0 +1,58 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "This file is @generated automatically"
+    ],
+    "content-hash": "44a7402288872a4211a1f11ec961644e",
+    "packages": [
+        {
+            "name": "seinopsys/postgresql-database-class",
+            "version": "v2.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/SeinopSys/PHP-PostgreSQL-Database-Class.git",
+                "reference": "0656e397dfdb9172c06c98b23ddd78a43950479f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/SeinopSys/PHP-PostgreSQL-Database-Class/zipball/0656e397dfdb9172c06c98b23ddd78a43950479f",
+                "reference": "0656e397dfdb9172c06c98b23ddd78a43950479f",
+                "shasum": ""
+            },
+            "require": {
+                "ext-pdo": "*",
+                "ext-pdo_pgsql": "*",
+                "php": ">=5.4"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "PostgresDb.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-3.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "SeinopSys",
+                    "email": "seinopsys@gmail.com",
+                    "homepage": "https://github.com/SeinopSys",
+                    "role": "Developer"
+                }
+            ],
+            "description": "PHP wrapper class for PDO-based interaction with PostgreSQL databases, heavily based on ThingEngineer's MysqliDb class",
+            "time": "2018-02-22T16:37:14+00:00"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": [],
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": [],
+    "platform-dev": []
+}
