@@ -97,8 +97,13 @@ function b64toBlob(b64Data, contentType, sliceSize) {
           return response.json();
           
         }).then(function (json_response) {
-            localStorage.setItem("session_id", json_response.session_id);
-            console.log("session_id = " + json_response.session_id);
+            
+            if (typeof json_response.session_id === "undefined") {
+              console.log(json_response.error);
+            } else {
+              localStorage.setItem("session_id", json_response.session_id);
+              console.log("session_id = " + json_response.session_id);
+            }
         }).catch(function(error){
             console.log("no funcionó: "+ error);
         });
