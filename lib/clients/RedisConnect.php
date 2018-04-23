@@ -26,6 +26,10 @@ class RedisConnect {
       static::$client = $rdis;
     }
   }
+  public function addSession($session_id) {
+    $rdis = $this->getClient();
+    return $rdis->lpush("sessions",$session_id);
+  }
 }
 
 ?>

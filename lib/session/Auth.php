@@ -1,5 +1,6 @@
 <?php 
 require_once __DIR__ . "../lib/clients/DatabaseConnect.php";
+require_once __DIR__ . "../lib/clients/RedisConnect.php";
 
 class Auth {
     
@@ -10,7 +11,8 @@ class Auth {
     private function create_session() {
 
         if ($session_id = openssl_random_pseudo_bytes(40)){
-            
+            $rdis = RedisConnect::getInstance();
+            $rdis->addSession($session_id);
         } else {
            return false;
         }
