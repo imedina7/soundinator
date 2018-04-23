@@ -21,7 +21,7 @@ class Auth {
     }
     
     public static function validate_user( $user, $pass ) {
-        $db = DatabaseConnect::geInstance();
+        $db = DatabaseConnect::getInstance();
         if ($db->userExists( $user )) {
 
             $passHash = password_hash($pass, PASSWORD_BCRYPT);
