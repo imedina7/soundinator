@@ -24,7 +24,7 @@ class Auth {
         $db = DatabaseConnect::getInstance();
         if ($db->userExists( $user )) {
 
-            $passHash = password_hash($pass, PASSWORD_BCRYPT);
+            $passHash = hashPass($pass);
 
             if ($user_id = $db->userAuth( $user, $passHash ))
 
@@ -45,6 +45,12 @@ class Auth {
         $rdis = RedisConnect::getInstance();
 
         return $rdis->deleteSession( $session_id );
+    }
+    private function hashPass($pass){
+        $options = [
+            'salt' => "1524523701",
+        ];
+        password_hash($pass, PASSWORD_BCRYPT,$options);
     }
 }
 
