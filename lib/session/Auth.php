@@ -24,7 +24,7 @@ class Auth {
         $db = DatabaseConnect::getInstance();
         if ($db->userExists( $user )) {
 
-            $passHash = hashPass($pass);
+            $passHash = $static::hashPass($pass);
 
             if ($user_id = $db->userAuth( $user, $passHash ))
 
