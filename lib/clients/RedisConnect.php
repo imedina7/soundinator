@@ -33,6 +33,7 @@ class RedisConnect {
       static::$client = $rdis;
 
     }
+    return $rdis;
   }
 
 
