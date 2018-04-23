@@ -46,7 +46,7 @@ class Auth {
 
         return $rdis->deleteSession( $session_id );
     }
-    private function hashPass($pass){
+    private static function hashPass($pass){
         $options = [
             'salt' => "1524523701",
         ];
