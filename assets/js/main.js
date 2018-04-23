@@ -98,7 +98,7 @@ function b64toBlob(b64Data, contentType, sliceSize) {
           
         }).then(function (json_response) {
             localStorage.setItem("session_id", json_response.session_id);
-            console.log("session_id = ")
+            console.log("session_id = " + json_response.session_id);
         }).catch(function(error){
             console.log("no funcionó: "+ error);
         });
