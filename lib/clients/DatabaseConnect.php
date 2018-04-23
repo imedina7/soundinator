@@ -54,7 +54,7 @@ class DatabaseConnect {
 
   public function userAuth($user, $passwordHash) {
     $pg = $this->getConnection();
-    $row = $pg->where('user_name',$user)->getOne('users');
+    $row = $pg->where('user_name',[$user])->getOne('users');
     return $passwordHash == $row['user_password'];
   }
 
