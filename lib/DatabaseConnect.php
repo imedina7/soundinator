@@ -19,7 +19,7 @@ class DatabaseConnect {
     return static::$db;
   }
 
-  private static function getConnection (){
+  private function getConnection (){
     $dbUrl = getenv("DATABASE_URL");
 
     if (static::$conn != null) {
