@@ -58,7 +58,7 @@ function b64toBlob(b64Data, contentType, sliceSize) {
 ( function () {
   
   var sounds = new Array();
-  var req = new Request.Request("/api.php",{ method: "GET", body: { SESSION_ID: localStorage.SESSION_ID, action: "getSounds" }});
+  var req = new Request("/api.php",{ method: "GET", body: { SESSION_ID: localStorage.SESSION_ID, action: "getSounds" }});
   fetch(req).then(function (response){
     return response.json();
     
