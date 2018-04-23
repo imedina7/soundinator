@@ -24,11 +24,11 @@ class Auth {
         $db = DatabaseConnect::getInstance();
         if ($db->userExists( $user )) {
 
-            $passHash = hashPass($pass);
+            $passHash = $this->hashPass($pass);
 
             if ($user_id = $db->userAuth( $user, $passHash ))
 
-                return create_session( $user_id );
+                return $this->create_session( $user_id );
 
         }
         return false;
