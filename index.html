@@ -12,11 +12,20 @@
 <body>
   <div id="app">
     <h1>{{ title }}</h1>
-      <ul>
+    <div v-if="! loggedIn">
+      <p>Looks like you are not logged in! <a href="#" @click="loginform = !loginform">Log in</a> first to see your sounds and add new ones.</p>
+      <form v-if="loginform" id="loginForm" v-on:submit.prevent="onSubmit">
+        <input type="text" name="username" id="username" placeholder="Username...">
+        <input type="password" name="password" id="password" placeholder="Password...">
+        <input type="submit" name="submit" id="submit" value="Login">
+      </form>
+    </div>
+    <ul>
         <li v-for="sound in soundList">
           <a href="#" class="soundButton" :data-sound-id="sound.id" v-bind:class="{ 'playing' : sound.isplaying }" v-on:click="sound.play()">{{sound.name}}</a>
         </li>
       </ul>
+    
   </div>
   <script src="assets/js/main.js"></script>
 </body>
