@@ -40,7 +40,7 @@ class DatabaseConnect {
 
   public function getSounds($user_id){
     $pg = $this->getConnection();
-    $rows = $pg->where("user_id",[$user_id])->get('sounds');
+    $rows = $pg->where("user_id",[$user_id])->get('sounds',"sound_id, sound_name, sound_type, encode(sound_data,'base64'), sound_tags, user_id");
     return $rows;
   }
   public function saveSounds($user_id,$sounds){
@@ -76,15 +76,11 @@ class DatabaseConnect {
         
         fclose($handle);
   
-        if ( $pg->insert('sounds', [ 'sound_name' => $name, 
+        $pg->insert('sounds', [ 'sound_name' => $name, 
                                 'sound_type' => $contentType, 
-                                'sound_data' => "encode('".bin2hex($contents)."'::bytea,'hex')",
-                                'user_id' => $user_id ])){
-          $output = '{ "status" : "success" }';
-        } else {
-          error_log("Error uploading file '".$key."', sound_id=$sound_id");
-          $output = '{ "error": "Failed to upload file"}';
-        }
+                                'sound_data' => "decode('".bin2hex($contents)."','hex')",
+                                'user_id' => $user_id ]);
+        $output = '{ "status" : "success" }';
       } else {
         error_log("Error uploading file '".$key."': ". $s['error']);
       }
