@@ -43,6 +43,11 @@ class DatabaseConnect {
     $rows = $pg->where("user_id",[$user_id])->get('sounds',null,"sound_id, sound_name, sound_type, regexp_replace(encode(sound_data,'base64'), '\r|\n', '', 'g') AS data_base64, sound_tags, user_id");
     return $rows;
   }
+  public function getSound($sound_id){
+    $pg = $this->getConnection();
+    $row = $pg->where("sound_id",[$sound_id])->getOne('sounds',null,"sound_id, sound_name, sound_type, regexp_replace(encode(sound_data,'base64'), '\r|\n', '', 'g') AS data_base64, sound_tags, user_id");
+    return $row;
+  }
   public function saveSounds($user_id,$sounds){
     $pg = $this->getConnection();
     /*
@@ -71,14 +76,14 @@ class DatabaseConnect {
         $filename = $s['tmp_name'];
         $contentType = mime_content_type ( $s['tmp_name'] );;
 
-        $handle = fopen($filename, "rb");
-        $contents = fread($handle, filesize($filename));
+        // $handle = fopen($filename, "rb");
+        $contents = file_get_contents($filename);
         
-        fclose($handle);
+        // fclose($handle);
   
         $pg->insert('sounds', [ 'sound_name' => $name, 
                                 'sound_type' => $contentType, 
-                                'sound_data' => "decode('".base64_encode($contents)."','base64')",
+                                'sound_data' => "decode('".base64_encode($contents)."'::bytea,'base64')",
                                 'user_id' => $user_id ]);
         $output = '{ "status" : "success" }';
       } else {
