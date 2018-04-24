@@ -76,11 +76,11 @@ class DatabaseConnect {
         
         fclose($handle);
   
-        if ( $sound_id = $pg->insert('sounds', [ 'sound_name' => $name, 
+        if ( $pg->insert('sounds', [ 'sound_name' => $name, 
                                 'sound_type' => $contentType, 
                                 'sound_data' => pg_escape_bytea($contents),
-                                'user_id' => $user_id ], "sound_id")["sound_id"]){
-          $output = '{ "status" : "success", "sound_id":'.$sound_id.'}';
+                                'user_id' => $user_id ])){
+          $output = '{ "status" : "success" }';
         } else {
           error_log("Error uploading file '".$key."', sound_id=$sound_id");
           $output = '{ "error": "Failed to upload file"}';
@@ -121,7 +121,7 @@ class DatabaseConnect {
     return 0;
   }
   private function parseFileName($filename) {
-    $filename = preg_replace('/[_]/',"",$filename);
+    $filename = preg_replace('/[_]/'," ",$filename);
     $filename = preg_replace('/\.(.*)$/',"",$filename);
     return ucwords($filename);
   }
