@@ -33,6 +33,7 @@ if (isset($_GET["action"])) {
             }
             $outObject = array("soundList" => $outArray);
             $output = json_encode($outObject);
+            error_log("api sent object: ".$output);
         break;
         default: 
             $output = '{ "error": "You must specify a valid action" }';
