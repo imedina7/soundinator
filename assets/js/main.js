@@ -158,6 +158,7 @@ function b64toBlob(b64Data, contentType, sliceSize) {
             if (typeof json_response.status === "undefined") {
               console.log(json_response.error);
             } else {
+              console.log("sound_id = "+json_response.sound_id+" successfuly loaded into database.")
               self.loadSounds();
             }
           }).catch(function(error){
