@@ -10,3 +10,15 @@ body {
 .soundButton.playing {
     background-color: rgba(0,255,0,0.7);
 }
+button, input {
+    border-radius: 2px;
+    border: 1px solid #AAA;
+    padding: 5px 10px;
+    background: #EAEAEA;
+}
+ul.soundList .soundButton {
+    display: inline-block;
+    padding: 20px 40px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
