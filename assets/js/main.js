@@ -92,6 +92,7 @@ function b64toBlob(b64Data, contentType, sliceSize) {
     },
     methods: {
       onSubmit: function(event){
+        var self = this;
         var fdata = new FormData(document.getElementById("loginForm"));
     
         var req = new Request("/login.php",{ method: "POST", body: fdata});
@@ -105,13 +106,14 @@ function b64toBlob(b64Data, contentType, sliceSize) {
             } else {
               localStorage.setItem("session_id", json_response.session_id);
               console.log("session_id = " + json_response.session_id);
-              this.loggedIn = true;
+              self.loggedIn = true;
             }
         }).catch(function(error){
             console.log("no funcionó: "+ error);
         });
       },
       logout: function () {
+        var self = this;
         if (localStorage.getItem("session_id") != null){
           var fdata = new FormData();
           fdata.append("SESSION_ID",localStorage.getItem("session_id"));
@@ -126,7 +128,7 @@ function b64toBlob(b64Data, contentType, sliceSize) {
             } else {
               localStorage.removeItem("session_id");
               console.log("status = " + json_response.status);
-              this.loggedIn = false;
+              self.loggedIn = false;
             }
           }).catch(function(error){
               console.log("no funcionó: "+ error);
