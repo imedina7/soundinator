@@ -126,6 +126,7 @@ function b64toBlob(b64Data, contentType, sliceSize) {
             
           }).then(function (json_response) {
               var soundList = json_response.soundList;
+              ctx.soundList = [];
               soundList.forEach(function (element) {
                 var currentSound = new Sound(element.name);
                 currentSound.id = element.id;
