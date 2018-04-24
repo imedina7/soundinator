@@ -91,7 +91,7 @@ class DatabaseConnect {
         $sth->bindParam(':sound_name', $name);
         $sth->bindParam(':sound_type', $contentType);
         $sth->bindParam(':user_id', $user_id);
-        $sth->bindParam(':sound_data', $contents, PDO::PARAM_LOB);
+        $sth->bindParam(':sound_data', bin2hex($contents), PDO::PARAM_LOB);
         $sth->execute();
         $output = '{ "status" : "success" }';
       } else {
