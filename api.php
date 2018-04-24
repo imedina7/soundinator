@@ -28,7 +28,7 @@ if (isset($_GET["action"])) {
                 $sound_data = fgets($s['sound_data']);
                 $currentObj = array("name" => $s['sound_name'],
                                     "id" => $s['sound_id'],
-                                    "blob" => base64_encode(pg_unescape_bytea($sound_data)),
+                                    "blob" => base64_encode(pg_unescape_bytea($s['sound_data'])),
                                     "type" => $s['sound_type']);
                 array_push($outArray,$currentObj);
             }
