@@ -60,7 +60,7 @@ function b64toBlob(b64Data, contentType, sliceSize) {
   const App = new Vue({
     el: "#app",
     data: {
-      loggedIn: loggedIn,
+      loggedIn: false,
       loginform: false,
       title: "Welcome!",
       soundList: []
