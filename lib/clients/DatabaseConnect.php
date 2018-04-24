@@ -71,13 +71,12 @@ class DatabaseConnect {
       The error code associated with this file upload.
     */
     $savedFiles = Array();
-    for ($i = 0; $i < count($sounds['userfile']['name']); $i++) {
-      $s = $sounds['userfile'];
+    foreach ($sounds as $s) {
       if ($s['error'][$i] == 0) {
         $name = $this->parseFileName($s['name'][$i]);
 
-        $filename = $s['tmp_name'][$i];
-        $contentType = mime_content_type ( $s['tmp_name'][$i] );;
+        $filename = $s['tmp_name'];
+        $contentType = mime_content_type ( $s['tmp_name'] );;
         $mimeTypeFirstPart = explode("/",$contentType);
         if ($mimeTypeFirstPart != 'audio')
           continue;
@@ -90,9 +89,9 @@ class DatabaseConnect {
                                 'sound_type' => $contentType, 
                                 'sound_data' => "{$data}",
                                 'user_id' => $user_id ]);
-        array_push($savedFiles, $s['name'][$i]);
+        array_push($savedFiles, $s['name']);
       } else {
-        error_log("Error uploading file '".$s['name'][$i]."': ". $s['error'][$i]);
+        error_log("Error uploading file '".$s['name']."': ". $s['error']);
       }
     }
     return $savedFiles;
