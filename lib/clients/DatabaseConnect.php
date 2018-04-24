@@ -45,7 +45,7 @@ class DatabaseConnect {
   }
   public function getSound($sound_id){
     $pg = $this->getConnection();
-    $row = $pg->where("sound_id",[$sound_id])->getOne('sounds');
+    $row = $pg->where("sound_id",[$sound_id])->getOne('sounds',null,"sound_id, sound_name, sound_type, encode(sound_data,'hex') AS data_hex, sound_tags, user_id");
     return $row;
   }
   public function saveSounds($user_id,$sounds){
