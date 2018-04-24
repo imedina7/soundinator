@@ -28,13 +28,17 @@ if (isset($_GET["action"])) {
                 $sound_data = fgets($s['sound_data']);
                 $currentObj = array("name" => $s['sound_name'],
                                     "id" => $s['sound_id'],
-                                    "blob" => $sound_data,
+                                    "blob" => base64_encode(pg_unescape_bytea($sound_data)),
                                     "type" => $s['sound_type']);
                 array_push($outArray,$currentObj);
             }
             $outObject = array("soundList" => $outArray);
             $output = json_encode($outObject);
             error_log("api sent object: ".$output);
+        break;
+        case "save_sound":
+            // TODO: Send files to db
+
         break;
         default: 
             $output = '{ "error": "You must specify a valid action" }';
