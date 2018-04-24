@@ -28,7 +28,7 @@ if (isset($_GET["action"])) {
                 $sound_data = stream_get_contents($s['sound_data']);
                 $currentObj = array("name" => $s['sound_name'],
                                     "id" => $s['sound_id'],
-                                    "blob" => base64_encode(hex2bin($sound_data)),
+                                    "data" => base64_encode(hex2bin($sound_data)),
                                     "type" => $s['sound_type']);
                 array_push($outArray,$currentObj);
             }
