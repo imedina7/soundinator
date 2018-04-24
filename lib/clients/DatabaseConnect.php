@@ -82,7 +82,7 @@ class DatabaseConnect {
                                 'user_id' => $user_id ], "sound_id")["sound_id"]){
           $output = '{ "status" : "success", "sound_id":'.$sound_id.'}';
         } else {
-          error_log("Error uploading file '".$key."'");
+          error_log("Error uploading file '".$key."', sound_id=$sound_id");
           $output = '{ "error": "Failed to upload file"}';
         }
       } else {
