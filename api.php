@@ -27,7 +27,7 @@ if (isset($_GET["action"])) {
             foreach ($sounds as $s){
                 $currentObj = array("name" => $s['sound_name'],
                                     "id" => $s['sound_id'],
-                                    "blob" => ($s['sound_data'] == null) ? "\0" : $s['sound_data'],
+                                    "blob" => base64_encode($s['sound_data']),
                                     "type" => $s['sound_type']);
                 array_push($outArray,$currentObj);
             }
