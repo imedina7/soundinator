@@ -66,7 +66,7 @@ class DatabaseConnect {
     */
     foreach ($sounds as $key => $s) {
       if ($s['error'] == 0) {
-        $name = parseFileName($key);
+        $name = $this->parseFileName($s['name']);
 
         $filename = $s['tmp_name'];
         $contentType = $s['size'];
