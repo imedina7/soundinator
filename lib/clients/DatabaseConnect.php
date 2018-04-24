@@ -77,7 +77,7 @@ class DatabaseConnect {
 
         $filename = $s['tmp_name'];
         $contentType = mime_content_type ( $s['tmp_name'] );;
-        $mimeTypeFirstPart = explode("/",$contentType);
+        $mimeTypeFirstPart = explode("/",$contentType)[0];
         if ($mimeTypeFirstPart != 'audio')
           continue;
         // $handle = fopen($filename, "rb");
