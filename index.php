@@ -18,17 +18,19 @@
 </head>
 <body>
   <div id="app" class="principal">
-    <h1>{{ title }}</h1>
+    <div class="navigation">
+      <h1>{{ title }}</h1>
+    </div>
     <div class="columnas">
       <div v-if="! loggedIn">
-        <p class="lead">Looks like you are not logged in! <a href="#" @click="loginform = !loginform">Log in</a> first to see your sounds and add new ones.</p>
-        <form v-if="loginform" id="loginForm" v-on:submit.prevent="onSubmit">
-          <input type="text" name="username" id="username" placeholder="Username...">
-          <input type="password" name="password" id="password" placeholder="Password...">
+        <p style="display: inline-block">Looks like you are not logged in! <a href="#" @click="loginform = !loginform">Log in</a> first to see your sounds and add new ones.</p>
+        <form v-if="loginform" id="loginForm" v-on:submit.prevent="onSubmit"/>
+          <input type="text" name="username" id="username" placeholder="Username..."/>
+          <input type="password" name="password" id="password" placeholder="Password..."/>
           <input type="submit" name="submit" id="submit" value="Login">
         </form>
       </div>
-      <p class="lead" v-if="loggedIn">So you are logged in, you can always <a href="#" @click="logout()">log out</a></p>
+      <p v-if="loggedIn">So you are logged in, you can always <a href="#" @click="logout()">log out</a></p>
       <ul class="soundList" v-if="loggedIn">
         <li v-for="sound in soundList">
           <a href="#" class="soundButton" :data-sound-id="sound.id" v-bind:class="{ 'playing' : sound.isplaying }" v-on:click="sound.play()">{{sound.name}}</a>

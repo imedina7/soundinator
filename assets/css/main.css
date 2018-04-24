@@ -1,9 +1,26 @@
 /* Show it is fixed to the top */
 body {
     font-family: 'Abel', sans-serif;
-    min-height: 75rem;
-    padding-top: 4.5rem;
+    font-size: 16px;
+    background: #454545;
+    color: #E0FFEF;
   }
+.navigation {
+    margin: 0;
+    background: #1A2326;
+    padding: 10px 20px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+}
+.navigation h1 {
+    margin: 5px 10px;
+    font-size: 1.7em;
+}
+.columnas {
+    margin-top: 2em;
+}
 .soundButton {
     background-color: transparent;
 }

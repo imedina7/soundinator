@@ -1,9 +1,10 @@
 /* Grid */
+
 .principal {
   position: relative;
   width: 		100%;
   max-width:	100%;
-  padding: 	2.8rem;
+  padding: 	3rem;
   transition: margin .6s ease-in-out;
 }
 .columnas {
