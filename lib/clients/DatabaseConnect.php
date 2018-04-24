@@ -72,8 +72,8 @@ class DatabaseConnect {
     */
     $savedFiles = Array();
     foreach ($sounds as $s) {
-      if ($s['error'][$i] == 0) {
-        $name = $this->parseFileName($s['name'][$i]);
+      if ($s['error'] == 0) {
+        $name = $this->parseFileName($s['name']);
 
         $filename = $s['tmp_name'];
         $contentType = mime_content_type ( $s['tmp_name'] );;
