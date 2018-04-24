@@ -87,11 +87,12 @@ class DatabaseConnect {
                                 'sound_data' => "{$data}",
                                 'user_id' => $user_id ]);
 
-        $output = '{ "status" : "success" }';
+        
       } else {
         error_log("Error uploading file '".$key."': ". $s['error']);
       }
     }
+    return true;
   }
   public function userExists($user) {
     $pg = $this->getConnection();

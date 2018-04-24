@@ -37,10 +37,9 @@ if (isset($_GET["action"])) {
             error_log("api sent object: ".$output);
         break;
         case "save_sounds":
-            if ( isset($_FILES) ){
-                $db->saveSounds($user_id,$_FILES);
-            }
-
+            if ( isset($_FILES))
+                if ($db->saveSounds($user_id,$_FILES))
+                    $output = '{"status" : "success" }';
         break;
         default: 
             $output = '{ "error": "You must specify a valid action" }';
