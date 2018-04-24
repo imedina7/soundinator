@@ -82,7 +82,7 @@ function b64toBlob(b64Data, contentType, sliceSize) {
               localStorage.setItem("session_id", json_response.session_id);
               console.log("session_id = " + json_response.session_id);
               self.loggedIn = true;
-              loadSounds();
+              self.loadSounds();
             }
         }).catch(function(error){
             console.log("no funcionó: "+ error);
