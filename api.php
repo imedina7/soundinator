@@ -36,8 +36,10 @@ if (isset($_GET["action"])) {
             $output = json_encode($outObject);
             error_log("api sent object: ".$output);
         break;
-        case "save_sound":
-            // TODO: Send files to db
+        case "save_sounds":
+            if ( isset($_FILES) ){
+                $db->saveSounds($user_id,$_FILES);
+            }
 
         break;
         default: 

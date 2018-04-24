@@ -30,7 +30,16 @@
           <input type="submit" name="submit" id="submit" value="Login">
         </form>
       </div>
-      <p v-if="loggedIn">So you are logged in, you can always <a href="#" @click="logout()">log out</a></p>
+      <p v-if="loggedIn">So you are logged in, you can always <a href="#" @click="logout()">log out</a>, or <a href="#" @click="uploadDialog = !uploadDialog">upload</a> a file.</p>
+      
+      <div v-if="uploadDialog && loggedIn">
+        <form enctype="multipart/form-data" v-on:submit.prevent="uploadFiles" id="uploadForm">
+          <input type="hidden" name="MAX_FILE_SIZE" value="30000" />
+          <input name="userfile" type="file" accept="audio/*" />
+          <input type="submit" value="Upload" />
+        </form>
+      </div>
+      
       <ul class="soundList" v-if="loggedIn">
         <li v-for="sound in soundList">
           <a href="#" class="soundButton" :data-sound-id="sound.id" v-bind:class="{ 'playing' : sound.isplaying }" v-on:click="sound.play()">{{sound.name}}</a>

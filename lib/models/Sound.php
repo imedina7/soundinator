@@ -32,5 +32,11 @@ class Sound {
     public function getContentType(){
         return $this->contentType;
     }
+    public function toString(){
+        return  '{ "id": '.$this->id.
+                ', "name": "'.$this->name.
+                '", "blob": "'.$this->bytes.
+                '", "contentType": "'.$this->contentType.'" }';
+    }
 }
 ?>

@@ -63,6 +63,7 @@ function b64toBlob(b64Data, contentType, sliceSize) {
       loggedIn: false,
       loginform: false,
       title: "Welcome!",
+      uploadDialog: false,
       soundList: []
     },
     methods: {
@@ -85,7 +86,7 @@ function b64toBlob(b64Data, contentType, sliceSize) {
               self.loadSounds();
             }
         }).catch(function(error){
-            console.log("no funcionó: "+ error);
+            console.log("Error, server responded: "+ error);
         });
       },
       logout: function () {
@@ -108,7 +109,7 @@ function b64toBlob(b64Data, contentType, sliceSize) {
               self.soundList = [];
             }
           }).catch(function(error){
-              console.log("no funcionó: "+ error);
+              console.log("Error, server responded: "+ error);
           });
         }
       },
@@ -134,7 +135,33 @@ function b64toBlob(b64Data, contentType, sliceSize) {
               })
               
           }).catch(function(error){
-              console.log("no funcionó: "+ error);
+              console.log("Error, server responded: "+ error);
+          });
+        }
+      },
+      uploadFiles: function(event){
+        session_id = localStorage.getItem("session_id");
+
+        if (session_id != null) {
+
+          var self = this;
+          var fdata = new FormData(document.getElementById("uploadForm"));
+
+          fdata.append("SESSION_ID",session_id);
+          var req = new Request("/api.php?action=save_sounds",{ method: "POST", body: fdata});
+
+          fetch(req).then(function (response){
+            return response.json();
+            
+          }).then(function (json_response) {
+              
+            if (typeof json_response.status === "undefined") {
+              console.log(json_response.error);
+            } else {
+              self.loadSounds();
+            }
+          }).catch(function(error){
+            console.log("Error, server responded: "+ error);
           });
         }
       }

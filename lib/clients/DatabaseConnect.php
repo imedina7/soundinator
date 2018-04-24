@@ -44,7 +44,46 @@ class DatabaseConnect {
     return $rows;
   }
   public function saveSounds($user_id,$sounds){
-    
+    $pg = $this->getConnection();
+    /*
+    *
+    *$_FILES['userfile']['name']
+      The original name of the file on the client machine.
+
+      $_FILES['userfile']['type']
+      The mime type of the file, if the browser provided this information. 
+      An example would be "image/gif". This mime type is however not 
+      checked on the PHP side and therefore don't take its value for granted.
+
+      $_FILES['userfile']['size']
+      The size, in bytes, of the uploaded file.
+
+      $_FILES['userfile']['tmp_name']
+      The temporary filename of the file in which the uploaded file was stored on the server.
+
+      $_FILES['userfile']['error']
+      The error code associated with this file upload.
+    */
+    foreach ($sounds as $key => $s) {
+      if ($s['error'] == 0) {
+        $name = parseFileName($key);
+
+        $filename = $s['tmp_name'];
+        $contentType = $s['size'];
+
+        $handle = fopen($filename, "rb");
+        $contents = fread($handle, filesize($filename));
+        
+        fclose($handle);
+  
+        $pg->insert('sounds', [ 'sound_name' => $name, 
+                                'sound_type' => $contentType, 
+                                'sound_data' => pg_escape_bytea($contents),
+                                'user_id' => $user_id ]);
+      } else {
+        error_log("Error uploading file '".$key."': ". $s['error']);
+      }
+    }
   }
   public function userExists($user) {
     $pg = $this->getConnection();
@@ -75,6 +114,11 @@ class DatabaseConnect {
     } else
       return $_cod;
     return 0;
+  }
+  private function parseFileName($filename) {
+    $filename = preg_replace('/[_]/',"",$filename);
+    $filename = preg_replace('/\.(.*)$/',"",$filename);
+    return ucwords($filename);
   }
 }
 
