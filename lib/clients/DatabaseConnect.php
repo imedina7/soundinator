@@ -79,20 +79,14 @@ class DatabaseConnect {
 
         // $handle = fopen($filename, "rb");
         $contents = file_get_contents($filename);
-        
+        $data = bin2hex($contents);
         // fclose($handle);
-  /*
+  
         $pg->insert('sounds', [ 'sound_name' => $name, 
                                 'sound_type' => $contentType, 
-                                'sound_data' => "decode('".base64_encode($contents)."'::bytea,'base64')",
+                                'sound_data' => "decode('{$data}'::bytea,'hex')",
                                 'user_id' => $user_id ]);
-  */
-        $sth = $pdo->prepare('INSERT INTO sounds(sound_name, sound_type, user_id, sound_data) VALUES (:sound_name, :sound_type, :user_id, :sound_data)');
-        $sth->bindParam(':sound_name', $name);
-        $sth->bindParam(':sound_type', $contentType);
-        $sth->bindParam(':user_id', $user_id);
-        $sth->bindParam(':sound_data', bin2hex($contents), PDO::PARAM_LOB);
-        $sth->execute();
+
         $output = '{ "status" : "success" }';
       } else {
         error_log("Error uploading file '".$key."': ". $s['error']);
