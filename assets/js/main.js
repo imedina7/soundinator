@@ -55,6 +55,7 @@ function b64toBlob(b64Data, contentType, sliceSize) {
 }
 
 
+
 ( function () {
   var sounds = new Array();
   var loggedIn = false;
@@ -109,6 +110,28 @@ function b64toBlob(b64Data, contentType, sliceSize) {
         }).catch(function(error){
             console.log("no funcionó: "+ error);
         });
+      },
+      logout: function () {
+        if (localStorage.getItem("session_id") != null){
+          var fdata = new FormData();
+          fdata.append("SESSION_ID",localStorage.getItem("session_id"));
+      
+          var req = new Request("/login.php?logout",{ method: "POST", body: fdata});
+          fetch(req).then(function (response){
+            return response.json();
+            
+          }).then(function (json_response) {
+            if (typeof json_response.status === "undefined") {
+              console.log(json_response.error);
+            } else {
+              localStorage.removeItem("session_id");
+              console.log("status = " + json_response.status);
+              this.loggedIn = false;
+            }
+          }).catch(function(error){
+              console.log("no funcionó: "+ error);
+          });
+        }
       }
     }
   });

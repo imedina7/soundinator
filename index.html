@@ -20,6 +20,7 @@
         <input type="submit" name="submit" id="submit" value="Login">
       </form>
     </div>
+    <div v-if="loggedIn">So you are logged in, you can always <a href="#" @click="logout()">log out</a></div>
     <ul>
         <li v-for="sound in soundList">
           <a href="#" class="soundButton" :data-sound-id="sound.id" v-bind:class="{ 'playing' : sound.isplaying }" v-on:click="sound.play()">{{sound.name}}</a>
