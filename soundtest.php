@@ -6,6 +6,7 @@ $db = DatabaseConnect::getInstance();
 $s = $db->getSound($_GET['sound_id']);
 
 header("Content-type: ".$s['sound_type']."; charset=utf-8");
-echo $s['sound_data'];
+
+echo stream_get_contents ($s['sound_data']);
 
 ?>
