@@ -18,6 +18,25 @@ body {
     margin: 5px 10px;
     font-size: 1.7em;
 }
+.navigation ul.links {
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    top: 0;
+    right: 20px;
+    bottom: 0;
+}
+.navigation ul.links li {
+    list-style-type: none;
+    padding: 5px 10px;
+    display: inline-block;
+    text-align: right;
+}
+.navigation ul.links li a {
+    display: inline-block;
+    padding: 14px 20px;
+    font-size: 1.2em;
+}
 .columnas {
     margin-top: 2em;
 }

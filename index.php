@@ -20,23 +20,27 @@
   <div id="app" class="principal">
     <div class="navigation">
       <h1>{{ title }}</h1>
-      <div v-if="! loggedIn">
-        <p style="display: inline-block"><a href="#" @click="loginform = !loginform">Log in</a></p>
-        <form v-if="loginform" id="loginForm" v-on:submit.prevent="onSubmit"/>
-          <input type="text" name="username" id="username" placeholder="Username..."/>
-          <input type="password" name="password" id="password" placeholder="Password..."/>
-          <input type="submit" name="submit" id="submit" value="Login">
-        </form>
-      </div>
-      <div v-if="uploadDialog && loggedIn">
-        <form enctype="multipart/form-data" v-on:submit.prevent="uploadFiles" id="uploadForm">
-          <input type="hidden" name="MAX_FILE_SIZE" value="2000000" />
-          <input name="userfile" type="file" accept="audio/*"/>
-          <input type="submit" value="Upload" />
-        </form>
-      </div>
-      <p v-if="loggedIn"><a href="#" @click="uploadDialog = !uploadDialog">Upload sound</a> | <a href="#" @click="logout()">Log out</a></p>
-      
+      <ul class="links">
+        <li v-if="loginform && !loggedIn">
+          <form v-if="loginform" id="loginForm" v-on:submit.prevent="onSubmit"/>
+            <input type="text" name="username" id="username" placeholder="Username..."/>
+            <input type="password" name="password" id="password" placeholder="Password..."/>
+            <input type="submit" name="submit" id="submit" value="Login">
+          </form>
+        </li>
+        <li v-if="uploadDialog && loggedIn">
+          <form enctype="multipart/form-data" v-on:submit.prevent="uploadFiles" id="uploadForm">
+            <input type="hidden" name="MAX_FILE_SIZE" value="2000000" />
+            <input name="userfile" type="file" accept="audio/*"/>
+            <input type="submit" value="Upload" />
+          </form>
+        </li>
+        <li v-if="! loggedIn">
+          <a href="#" @click="loginform = !loginform">Log in</a>
+        </li>
+        <li v-if="loggedIn"><a href="#" @click="uploadDialog = !uploadDialog">Upload sound</a></li>
+        <li v-if="loggedIn"><a href="#" @click="logout()">Log out</a></li>
+      </ul>
     </div>
     <div class="columnas">
       <ul class="soundList" v-if="loggedIn">
