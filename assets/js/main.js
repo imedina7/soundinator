@@ -57,43 +57,13 @@ function b64toBlob(b64Data, contentType, sliceSize) {
 
 
 ( function () {
-  var sounds = new Array();
-  var loggedIn = false;
-
-  function loadSounds(){
-    var fdata = new FormData();
-    fdata.append("SESSION_ID",localStorage.getItem("session_id"));
-
-    var req = new Request("/api.php",{ method: "POST", body: fdata});
-    fetch(req).then(function (response){
-      return response.json();
-      
-    }).then(function (json_response) {
-        var soundList = json_response.soundList;
-        soundList.forEach(function (element) {
-          var currentSound = new Sound(element.name);
-          currentSound.id = element.id;
-          currentSound.blob = b64toBlob(element.data,element.contentType,1024);
-          currentSound.blobUrl = URL.createObjectURL(currentSound.blob);
-          sounds.push(currentSound);
-        })
-        
-    }).catch(function(error){
-        console.log("no funcionó: "+ error);
-    });
-  }
-
-  if (localStorage.getItem("session_id") != null){
-    loggedIn = true;
-    loadSounds();
-  }
   const App = new Vue({
     el: "#app",
     data: {
       loggedIn: loggedIn,
       loginform: false,
       title: "Welcome!",
-      soundList: sounds
+      soundList: []
     },
     methods: {
       onSubmit: function(event){
@@ -141,7 +111,36 @@ function b64toBlob(b64Data, contentType, sliceSize) {
               console.log("no funcionó: "+ error);
           });
         }
+      },
+      loadSounds: function (){
+        ctx = this;
+        if (localStorage.getItem("session_id") != null){
+          ctx.loggedIn = true;
+          var fdata = new FormData();
+          fdata.append("SESSION_ID",localStorage.getItem("session_id"));
+    
+          var req = new Request("/api.php",{ method: "POST", body: fdata});
+          fetch(req).then(function (response){
+            return response.json();
+            
+          }).then(function (json_response) {
+              var soundList = json_response.soundList;
+              soundList.forEach(function (element) {
+                var currentSound = new Sound(element.name);
+                currentSound.id = element.id;
+                currentSound.blob = b64toBlob(element.data,element.contentType,1024);
+                currentSound.blobUrl = URL.createObjectURL(currentSound.blob);
+                ctx.soundList.push(currentSound);
+              })
+              
+          }).catch(function(error){
+              console.log("no funcionó: "+ error);
+          });
+        }
       }
+    },
+    beforeMount(){
+      this.loadSounds();
     }
   });
 })();
