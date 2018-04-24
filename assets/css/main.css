@@ -5,6 +5,9 @@ body {
     background: #454545;
     color: #E0FFEF;
   }
+a {
+    color: #E0FFEF;
+}
 .navigation {
     margin: 0;
     background: #1A2326;
@@ -28,14 +31,19 @@ body {
 }
 .navigation ul.links li {
     list-style-type: none;
-    padding: 5px 10px;
+    padding: 0 5px;
     display: inline-block;
     text-align: right;
 }
 .navigation ul.links li a {
+    color: #AAA;
     display: inline-block;
-    padding: 14px 20px;
+    padding: 19px 20px;
     font-size: 1.2em;
+}
+.navigation ul.links li a:hover {
+    color: #E0FFEF;
+    background: rgba(255,255,255,0.1);
 }
 .columnas {
     margin-top: 2em;

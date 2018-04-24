@@ -62,7 +62,7 @@ function b64toBlob(b64Data, contentType, sliceSize) {
     data: {
       loggedIn: false,
       loginform: false,
-      title: "Welcome!",
+      title: "Soundinator",
       uploadDialog: false,
       soundList: []
     },
