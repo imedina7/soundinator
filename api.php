@@ -32,7 +32,7 @@ if (isset($_GET["action"])) {
                                     "type" => $s['sound_type']);
                 array_push($outArray,$currentObj);
             }
-            $outObject = array("soundList" => $outArray);
+            $outObject = array("status" => "success","soundList" => $outArray);
             $output = json_encode($outObject);
             error_log("api sent object: ".$output);
         break;
