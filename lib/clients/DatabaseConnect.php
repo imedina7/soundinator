@@ -78,7 +78,7 @@ class DatabaseConnect {
   
         if ( $pg->insert('sounds', [ 'sound_name' => $name, 
                                 'sound_type' => $contentType, 
-                                'sound_data' => $contents,
+                                'sound_data' => "encode('".bin2hex($contents)."'::bytea,'hex')",
                                 'user_id' => $user_id ])){
           $output = '{ "status" : "success" }';
         } else {
