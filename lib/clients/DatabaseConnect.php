@@ -69,7 +69,7 @@ class DatabaseConnect {
         $name = $this->parseFileName($s['name']);
 
         $filename = $s['tmp_name'];
-        $contentType = $s['size'];
+        $contentType = mime_content_type ( $s['tmp_name'] );;
 
         $handle = fopen($filename, "rb");
         $contents = fread($handle, filesize($filename));
