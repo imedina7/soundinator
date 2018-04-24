@@ -62,11 +62,7 @@ class RedisConnect {
 
     $rdis = $this->getClient();
 
-    if ($response = $rdis->del($session_id))
-
-      return $response == 'OK';
-
-    return false;
+    return $rdis->del($session_id);
   }
 }
 
