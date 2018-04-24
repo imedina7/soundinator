@@ -1,0 +1,25 @@
+/* Grid */
+.principal {
+  position: relative;
+  width: 		100%;
+  max-width:	100%;
+  padding: 	2.8rem;
+  transition: margin .6s ease-in-out;
+}
+.columnas {
+  position: relative;
+  column-count: 1;
+  column-gap: 1.4rem;
+}
+/* Media queries */
+@media screen and (min-width: 480px) {
+  .columnas 	{ column-count: 2; }
+}
+
+@media screen and (min-width: 780px) {
+  .columnas 	{ column-count: 3; }
+}
+
+@media screen and (min-width: 1080px) {
+  .columnas { column-count: 4; }
+}
