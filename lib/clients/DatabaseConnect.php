@@ -70,13 +70,16 @@ class DatabaseConnect {
       $_FILES['userfile']['error']
       The error code associated with this file upload.
     */
+    $savedFiles = Array();
     foreach ($sounds as $key => $s) {
       if ($s['error'] == 0) {
         $name = $this->parseFileName($s['name']);
 
         $filename = $s['tmp_name'];
         $contentType = mime_content_type ( $s['tmp_name'] );;
-
+        $mimeTypeFirstPart = explode("/",$contentType);
+        if ($mimeTypeFirstPart != 'audio')
+          continue;
         // $handle = fopen($filename, "rb");
         $contents = file_get_contents($filename);
         $data = bin2hex($contents);
@@ -86,13 +89,12 @@ class DatabaseConnect {
                                 'sound_type' => $contentType, 
                                 'sound_data' => "{$data}",
                                 'user_id' => $user_id ]);
-
-        
+        array_push($savedFiles, $s['name']);
       } else {
         error_log("Error uploading file '".$key."': ". $s['error']);
       }
     }
-    return true;
+    return $savedFiles;
   }
   public function userExists($user) {
     $pg = $this->getConnection();

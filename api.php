@@ -38,8 +38,8 @@ if (isset($_GET["action"])) {
         break;
         case "save_sounds":
             if ( isset($_FILES))
-                if ($db->saveSounds($user_id,$_FILES))
-                    $output = '{"status" : "success" }';
+                if ($savedFiles = $db->saveSounds($user_id,$_FILES))
+                    $output = '{"status" : "success", "savedFiles": '.json_encode($savedFiles).' }';
         break;
         default: 
             $output = '{ "error": "You must specify a valid action" }';

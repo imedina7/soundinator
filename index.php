@@ -35,7 +35,7 @@
       <div v-if="uploadDialog && loggedIn">
         <form enctype="multipart/form-data" v-on:submit.prevent="uploadFiles" id="uploadForm">
           <input type="hidden" name="MAX_FILE_SIZE" value="2000000" />
-          <input name="userfile" type="file" accept="audio/*, image/*" />
+          <input name="userfile" type="file" accept="audio/*" />
           <input type="submit" value="Upload" />
         </form>
       </div>
