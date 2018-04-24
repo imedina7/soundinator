@@ -59,8 +59,8 @@ function b64toBlob(b64Data, contentType, sliceSize) {
 ( function () {
   var sounds = new Array();
   var loggedIn = false;
-  if (localStorage.getItem("session_id") != null){
-    loggedIn = true;
+
+  function loadSounds(){
     var fdata = new FormData();
     fdata.append("SESSION_ID",localStorage.getItem("session_id"));
 
@@ -81,6 +81,11 @@ function b64toBlob(b64Data, contentType, sliceSize) {
     }).catch(function(error){
         console.log("no funcionó: "+ error);
     });
+  }
+
+  if (localStorage.getItem("session_id") != null){
+    loggedIn = true;
+    loadSounds();
   }
   const App = new Vue({
     el: "#app",
@@ -107,6 +112,7 @@ function b64toBlob(b64Data, contentType, sliceSize) {
               localStorage.setItem("session_id", json_response.session_id);
               console.log("session_id = " + json_response.session_id);
               self.loggedIn = true;
+              loadSounds();
             }
         }).catch(function(error){
             console.log("no funcionó: "+ error);
@@ -129,6 +135,7 @@ function b64toBlob(b64Data, contentType, sliceSize) {
               localStorage.removeItem("session_id");
               console.log("status = " + json_response.status);
               self.loggedIn = false;
+              self.soundList = [];
             }
           }).catch(function(error){
               console.log("no funcionó: "+ error);
