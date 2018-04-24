@@ -6,6 +6,6 @@ $db = DatabaseConnect::getInstance();
 $s = $db->getSound(3);
 
 header("Content-type: ".$s['sound_type']."; charset=utf-8");
-echo base64_decode(hex2bin($s['data_base64']));
+echo hex2bin($s['data_base64']);
 
 ?>
