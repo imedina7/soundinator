@@ -38,9 +38,9 @@ class DatabaseConnect {
     return $pg;
   }
 
-  public function getSounds(){
+  public function getSounds($user_id){
     $pg = $this->getConnection();
-    $rows = $pg->get('sounds');
+    $rows = $pg->where(["user_id","sound_tags"],[$user_id,"public"])->get('sounds');
     return $rows;
   }
   public function saveSounds($user_id,$sounds){

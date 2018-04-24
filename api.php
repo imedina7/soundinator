@@ -1,6 +1,7 @@
 <?php
 
 require_once __DIR__ . "/lib/session/Auth.php";
+require_once __DIR__ . "/lib/models/Sound.php";
 
 header("Content-type: application/json; charset=utf-8");
 if ( ! isset($_POST['SESSION_ID']))
@@ -9,27 +10,35 @@ if ( ! isset($_POST['SESSION_ID']))
 if (! Auth::validate_session($_POST['SESSION_ID']))
     die('{ "error": "Failed to validate session" }');
 
+$output = '{ "error": "Bad request" }';
+if (isset($_GET["action"])) {
 
-$soundfiles = scandir("./sounds/");
-$i = 0;
-$jsonOutput = "";
+    $session_id = $_POST['SESSION_ID'];
+    
+    $redisClient = RedisConnect::getInstance();
+    
+    $user_id = $redisClient->getSessionUserId($session_id);
+    $db = DatabaseConnect::getInstance();
 
-foreach ($soundfiles as $s) {
-    if (preg_match('/^\./', $s) == 0) {
-        $filedata = base64_encode(file_get_contents("./sounds/".$s));
-        $jsonOutput .= '{"id":"'.$i.'","name": "'.$s.'","data":"'.$filedata.'"},';
-        $i++;
+    switch ($_GET["action"]){
+        case "fetch_sounds":
+            $sounds = $db->getSounds($user_id);
+            $outArray = Array();
+            foreach ($sounds as $s){
+                $currentObj = new Sound($s['sound_name']);
+                $currentObj->setId($s['sound_id']);
+                $currentObj->setBytes($s['sound_data']);
+                $currentObj->setContentType($s['sound_type']);
+                array_push($outArray,$currentObj);
+            }
+            $outObject = array("soundList" => $outArray);
+            $output = json_encode($outObject);
+        break;
+        default: 
+            $output = '{ "error": "You must specify a valid action" }';
     }
+    
 }
 
-$db = DatabaseConnect::getInstance();
-$dbOutput = "";
-$soundData = $db->getSounds();
-
-foreach ($soundData as $sdata){
-    $dbOutput = '{"id":"'.$sdata['sound_id'].'","name":"'.$sdata['sound_name'].'"},';
-}
-
-$jsonOutput = trim($jsonOutput,',');
-$dbOutput = trim($dbOutput,',');
-?>{"soundList":[<?php echo $jsonOutput; ?>],"dbOutput":[<?php echo $dbOutput; ?>]}
+echo $output;
+?>
