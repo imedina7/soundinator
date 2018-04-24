@@ -78,7 +78,7 @@ class DatabaseConnect {
   
         if ( $pg->insert('sounds', [ 'sound_name' => $name, 
                                 'sound_type' => $contentType, 
-                                'sound_data' => pg_escape_bytea($contents),
+                                'sound_data' => $contents,
                                 'user_id' => $user_id ])){
           $output = '{ "status" : "success" }';
         } else {
