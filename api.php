@@ -25,7 +25,7 @@ if (isset($_GET["action"])) {
             $sounds = $db->getSounds($user_id);
             $outArray = Array();
             foreach ($sounds as $s){
-                $sound_data = fgets($s['sound_data'][0][0]);
+                $sound_data = fgets($s['sound_data'][0]);
                 $currentObj = array("name" => $s['sound_name'],
                                     "id" => $s['sound_id'],
                                     "blob" => base64_encode($sound_data),
