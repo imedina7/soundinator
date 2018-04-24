@@ -139,7 +139,7 @@ function b64toBlob(b64Data, contentType, sliceSize) {
         }
       }
     },
-    beforeMount(){
+    mounted(){
       this.loadSounds();
     }
   });
