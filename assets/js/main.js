@@ -119,7 +119,7 @@ function b64toBlob(b64Data, contentType, sliceSize) {
           var fdata = new FormData();
           fdata.append("SESSION_ID",localStorage.getItem("session_id"));
     
-          var req = new Request("/api.php",{ method: "POST", body: fdata});
+          var req = new Request("/api.php?action=fetch_sounds",{ method: "POST", body: fdata});
           fetch(req).then(function (response){
             return response.json();
             
