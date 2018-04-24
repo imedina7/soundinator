@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Soundinator - The Official Botonera for The πbes</title>
+    <title>Soundinator - The Real Botonera for The πbes</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://fonts.googleapis.com/css?family=Abel" rel="stylesheet">
     <link rel="stylesheet" type="text/css" media="screen" href="assets/css/normalize.css" />
