@@ -40,7 +40,7 @@ class DatabaseConnect {
 
   public function getSounds($user_id){
     $pg = $this->getConnection();
-    $rows = $pg->where("user_id",[$user_id])->get('sounds',null,"sound_id, sound_name, sound_type, regexp_replace(encode(sound_data,'base64'), '\r|\n', '', 'g') AS data_base64, sound_tags, user_id");
+    $rows = $pg->where("user_id",[$user_id])->get('sounds');
     return $rows;
   }
   public function getSound($sound_id){
