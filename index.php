@@ -29,7 +29,7 @@
         </form>
       </div>
       <p class="lead" v-if="loggedIn">So you are logged in, you can always <a href="#" @click="logout()">log out</a></p>
-      <ul class="columnas soundList">
+      <ul class="soundList" v-if="loggedIn">
         <li v-for="sound in soundList">
           <a href="#" class="soundButton" :data-sound-id="sound.id" v-bind:class="{ 'playing' : sound.isplaying }" v-on:click="sound.play()">{{sound.name}}</a>
         </li>
