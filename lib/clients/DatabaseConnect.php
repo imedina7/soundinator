@@ -76,9 +76,10 @@ class DatabaseConnect {
         $name = $this->parseFileName($s['name']);
 
         $filename = $s['tmp_name'];
-        $contentType = mime_content_type ( $s['tmp_name'] );;
+        $contentType = mime_content_type ( $s['tmp_name'] );
         $mimeTypeFirstPart = explode("/",$contentType)[0];
-        if ($mimeTypeFirstPart != 'audio')
+        
+        if ($mimeTypeFirstPart != 'audio' || $contentType != 'application/ogg')
           continue;
         // $handle = fopen($filename, "rb");
         $contents = file_get_contents($filename);

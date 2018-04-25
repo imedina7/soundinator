@@ -1,19 +1,19 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Soundinator - The Real Botonera for The πbes</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://fonts.googleapis.com/css?family=Abel" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" media="screen" href="assets/css/normalize.css" />
-    <link rel="stylesheet" type="text/css" media="screen" href="assets/css/simplegrid.css" />
-    <link rel="stylesheet" type="text/css" media="screen" href="assets/css/main.css" />
-  <?php if (getenv('CURRENT_ENV') == 'production') { ?>
-    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
-  <?php } else { ?>
-    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
-  <?php } ?>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Soundinator - The Real Botonera for The πbes</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://fonts.googleapis.com/css?family=Abel" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" media="screen" href="assets/css/normalize.css" />
+  <link rel="stylesheet" type="text/css" media="screen" href="assets/css/simplegrid.css" />
+  <link rel="stylesheet" type="text/css" media="screen" href="assets/css/main.css" />
+<?php if (getenv('CURRENT_ENV') == 'production') { ?>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+<?php } else { ?>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+<?php } ?>
 
 </head>
 <body>
@@ -31,7 +31,7 @@
         <li v-if="uploadDialog && loggedIn">
           <form enctype="multipart/form-data" v-on:submit.prevent="uploadFiles" id="uploadForm">
             <input type="hidden" name="MAX_FILE_SIZE" value="2000000" />
-            <input name="userfile" type="file" accept="audio/*"/>
+            <input name="userfile" type="file" accept="audio/*, application/ogg"/>
             <input type="submit" value="Upload" />
           </form>
         </li>
@@ -45,7 +45,10 @@
     <div class="columnas">
       <ul class="soundList" v-if="loggedIn">
         <li v-for="sound in soundList">
-          <a href="#" class="soundButton" :data-sound-id="sound.id" v-bind:class="{ 'playing' : sound.isplaying }" v-on:click="sound.play()">{{sound.name}}</a>
+          <button class="soundButton" 
+             :data-sound-id="sound.id" 
+             v-bind:class="{ 'playing' : sound.isplaying }" 
+             v-on:click="sound.play()">{{sound.name}}</button>
         </li>
       </ul>
     </div>
