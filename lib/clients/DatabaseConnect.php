@@ -72,27 +72,31 @@ class DatabaseConnect {
     */
     $savedFiles = Array();
     foreach ($sounds as $s) {
-      if ($s['error'] == 0) {
-        $name = $this->parseFileName($s['name']);
+      for ($i = 0; $i < count($s['name']); $i++) {
 
-        $filename = $s['tmp_name'];
-        $contentType = mime_content_type ( $s['tmp_name'] );
-        $mimeTypeFirstPart = explode("/",$contentType)[0];
-        
-        // if ($mimeTypeFirstPart != 'audio' || $contentType != 'application/ogg')
-        //   continue;
-        // $handle = fopen($filename, "rb");
-        $contents = file_get_contents($filename);
-        $data = bin2hex($contents);
-        // fclose($handle);
+        if ($s['error'][$i] == 0) {
+          $name = $this->parseFileName($s['name']);
   
-        $pg->insert('sounds', [ 'sound_name' => $name, 
-                                'sound_type' => $contentType, 
-                                'sound_data' => "{$data}",
-                                'user_id' => $user_id ]);
-        array_push($savedFiles, $s['name']);
-      } else {
-        error_log("Error uploading file '".$s['name']."': ". $s['error']);
+          $filename = $s['tmp_name'][$i];
+          $contentType = mime_content_type ( $s['tmp_name'][$i] );
+          $mimeTypeFirstPart = explode("/",$contentType)[0];
+          
+          // if ($mimeTypeFirstPart != 'audio' || $contentType != 'application/ogg')
+          //   continue;
+          // $handle = fopen($filename, "rb");
+          $contents = file_get_contents($filename);
+          $data = bin2hex($contents);
+          // fclose($handle);
+    
+          $pg->insert('sounds', [ 'sound_name' => $name, 
+                                  'sound_type' => $contentType, 
+                                  'sound_data' => "{$data}",
+                                  'user_id' => $user_id ]);
+          array_push($savedFiles, $s['name'][$i]);
+        } else {
+          error_log("Error uploading file '".$s['name'][$i]."': ". $s['error'][$i]);
+        }
+
       }
     }
     return $savedFiles;
