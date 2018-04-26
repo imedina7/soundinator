@@ -52,10 +52,21 @@ button {
     margin: 2em 1em;
 }
 .soundButton {
+    position: relative;
     background-color: transparent;
 }
-.soundButton.playing {
-    background-color: rgba(0,255,0,0.7);
+button.soundButton::before {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 20%;
+    content:'';
+    display: none;
+}
+.soundButton.playing::before {
+    display: block;
+    background-color: rgba(162, 255, 162, 0.363);
 }
 button, input {
     border-radius: 2px;
