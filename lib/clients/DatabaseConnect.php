@@ -79,8 +79,8 @@ class DatabaseConnect {
         $contentType = mime_content_type ( $s['tmp_name'] );
         $mimeTypeFirstPart = explode("/",$contentType)[0];
         
-        if ($mimeTypeFirstPart != 'audio' || $contentType != 'application/ogg')
-          continue;
+        // if ($mimeTypeFirstPart != 'audio' || $contentType != 'application/ogg')
+        //   continue;
         // $handle = fopen($filename, "rb");
         $contents = file_get_contents($filename);
         $data = bin2hex($contents);
