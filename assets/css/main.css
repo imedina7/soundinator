@@ -17,6 +17,9 @@ a {
     left: 0;
     right: 0;
 }
+button {
+    outline-width: 0;
+}
 .navigation h1 {
     margin: 5px 10px;
     font-size: 1.7em;
