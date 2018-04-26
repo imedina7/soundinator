@@ -71,8 +71,9 @@ ul.soundList li {
     margin: 7px 10px;
     text-align: center;
 }
-ul.soundList li a {
+ul.soundList li button {
     display: inline-block;
+    border: 0;
     width: 100%;
     font-size: 1.4em;
     text-align: center;
