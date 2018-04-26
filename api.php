@@ -41,11 +41,13 @@ if (isset($_GET["action"])) {
 
     case "save_sounds":
   
-      if ( isset($_FILES))
-        if ($savedFiles = $db->saveSounds($user_id,$_FILES))
+      if ( isset($_FILES)) {
+        $savedFiles = $db->saveSounds($user_id,$_FILES);
+        if (count($savedFiles) >= 1)
           $output = '{"status" : "success", "savedFiles": '.json_encode($savedFiles).' }';
         else   
           $output = '{ "error": "Failed to save objects in database" }';
+      }
     break;
     default: 
       $output = '{ "error": "You must specify a valid action" }';
