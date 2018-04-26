@@ -75,7 +75,7 @@ class DatabaseConnect {
       for ($i = 0; $i < count($s['name']); $i++) {
 
         if ($s['error'][$i] == 0) {
-          $name = $this->parseFileName($s['name']);
+          $name = $this->parseFileName($s['name'][$i]);
   
           $filename = $s['tmp_name'][$i];
           $contentType = mime_content_type ( $s['tmp_name'][$i] );
