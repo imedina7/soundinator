@@ -48,8 +48,8 @@ button {
     color: #E0FFEF;
     background: rgba(255,255,255,0.1);
 }
-.columnas {
-    margin-top: 2em;
+.main-view {
+    margin: 2em 1em;
 }
 .soundButton {
     background-color: transparent;

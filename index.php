@@ -42,7 +42,7 @@
         <li v-if="loggedIn"><a href="#" @click="logout()">Log out</a></li>
       </ul>
     </div>
-    <div class="columnas">
+    <div class="columnas main-view">
       <ul class="soundList" v-if="loggedIn">
         <li v-for="sound in soundList">
           <button class="soundButton" 

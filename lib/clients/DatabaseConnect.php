@@ -83,10 +83,9 @@ class DatabaseConnect {
           
           // if ($mimeTypeFirstPart != 'audio' || $contentType != 'application/ogg')
           //   continue;
-          // $handle = fopen($filename, "rb");
+          
           $contents = file_get_contents($filename);
           $data = bin2hex($contents);
-          // fclose($handle);
     
           $pg->insert('sounds', [ 'sound_name' => $name, 
                                   'sound_type' => $contentType, 
