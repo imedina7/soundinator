@@ -130,6 +130,7 @@ function b64toBlob(b64Data, contentType, sliceSize) {
               soundList.forEach(function (element) {
                 var currentSound = new Sound(element.name);
                 currentSound.id = element.id;
+                currentSound.contentType = element.contentType;
                 currentSound.blob = b64toBlob(element.data,element.contentType,1024);
                 currentSound.blobUrl = URL.createObjectURL(currentSound.blob);
                 ctx.soundList.push(currentSound);
