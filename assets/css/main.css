@@ -9,6 +9,7 @@ a {
     color: #E0FFEF;
 }
 .navigation {
+    z-index: 50;
     margin: 0;
     background: #1A2326;
     padding: 10px 20px;
@@ -23,7 +24,6 @@ a {
     font-size: 1.7em;
 }
 .navigation ul.links {
-    z-index: 50;
     margin: 0;
     padding: 0;
     position: absolute;
@@ -100,3 +100,4 @@ ul.soundList .soundButton {
     margin-right: 10px;
     margin-bottom: 10px;
 }
+/* -------- TODO: ADD MEDIA QUERIES ------- */
