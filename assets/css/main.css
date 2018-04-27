@@ -16,6 +16,7 @@ a {
     top: 0;
     left: 0;
     right: 0;
+    box-shadow: 0 1px 10px rgba(0,0,0,0.5);
 }
 .navigation h1 {
     margin: 5px 10px;
@@ -29,7 +30,6 @@ a {
     top: 0;
     right: 20px;
     bottom: 0;
-    box-shadow: 0 1px 10px rgba(0,0,0,0.5);
 }
 .navigation ul.links li {
     list-style-type: none;
