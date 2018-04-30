@@ -7,6 +7,7 @@
 
 <script>
 module.exports = {
+  props: [sound],
   data: function () {
     return {
       sound: sound
@@ -16,7 +17,8 @@ module.exports = {
 </script>
 
 <style scoped>
- button {
+
+button {
     display: inline-block;
     border: 0;
     position:relative;
@@ -28,5 +30,20 @@ module.exports = {
     padding: 20px 0;
     margin-right: 10px;
     margin-bottom: 10px;
+}
+
+button::before {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 20%;
+    content:'';
+    display: none;
+}
+
+button.playing::before {
+    display: block;
+    background-color: rgba(162, 255, 162, 0.363);
 }
 </style>
