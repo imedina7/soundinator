@@ -117,7 +117,7 @@ class DatabaseConnect {
 
   private function populateDbParams($url) {
     if ($_cod = preg_match(
-            "/postgres:\/\/(.*):(.*)@(.*):(.*)\/([0-9a-zA-Z]*)/",
+            "/postgres:\/\/(.*):(.*)@(.*):(.*)\/([0-9a-zA-Z\-_]*)/",
             $url,
             $regs) > 0)
     {

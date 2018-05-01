@@ -47,9 +47,9 @@
       <ul class="soundList" v-if="loggedIn">
         <li v-for="sound in soundList">
           <button class="soundButton" 
-             :data-sound-id="sound.id" 
-             v-bind:class="{ 'playing' : sound.isplaying }" 
-             v-on:click="sound.play()">{{sound.name}}</button>
+             :id="'sound-'+sound.id" 
+             v-bind:class="{ 'playing' : sound.playing }" 
+             v-on:click="sound.play()"><span v-bind:style="{ 'width': sound.progress + '%'}"></span>{{sound.name}}</button>
         </li>
       </ul>
     </div>

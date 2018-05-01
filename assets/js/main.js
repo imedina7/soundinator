@@ -5,6 +5,7 @@ var Sound = function (name){
   this.blob = null;
   this.blobUrl = null;
   this.playing = false;
+  this.progress = 0;
 }
 
 Sound.prototype.isLoaded = function () {
@@ -18,16 +19,25 @@ Sound.prototype.getBlobUrl = function () {
 }
 
 Sound.prototype.play = function () {
-  var snd = this;
   var player = new Audio();
+  var el = document.getElementById('sound-'+this.id);
   player.src = this.getBlobUrl();
   player.play().then(function(){
-    snd.playing = true;
-  });
+    this.playing = true;
+  }.bind(this));
+  player.onplaying = function(){
+    if (player != null) {
+      var span = el.getElementsByTagName('span')[0];
+
+      span.style.width = player.currentTime / player.duration * 100 + '%';
+      
+      setTimeout(arguments.callee,60);
+    }
+  }.bind(this);
   player.onended = function () {
-    snd.playing = false;
+    this.playing = false;
     player = null;
-  }
+  }.bind(this);
 }
 
 function b64toBlob(b64Data, contentType, sliceSize) {
@@ -65,6 +75,14 @@ function b64toBlob(b64Data, contentType, sliceSize) {
       title: "Soundinator",
       uploadDialog: false,
       soundList: []
+    },
+    watch: {
+      soundList: {
+        handler(val){
+          console.log(val);
+        },
+        deep: true
+      }
     },
     methods: {
       onSubmit: function(event){

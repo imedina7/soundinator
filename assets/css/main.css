@@ -42,6 +42,7 @@ a {
     display: inline-block;
     padding: 19px 20px;
     font-size: 1.2em;
+    transition: all 0.4s;
 }
 .navigation ul.links li a:hover {
     color: #E0FFEF;
@@ -84,11 +85,29 @@ ul.soundList li button {
     text-align: center;
     background-color: #555;
     color: #AAA;
-}
-ul.soundList .soundButton {
-    display: inline-block;
+    text-shadow: 0 1px 3px rgba(20, 28, 31, 0.85);
     padding: 20px 0;
     margin-right: 10px;
     margin-bottom: 10px;
+    transition: all 0.4s;
+}
+ul.soundList li button:hover {
+    background-color: #888;
+    color: #CCC;
+}
+
+ul.soundList li button span {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 0%;
+    content:'';
+    display: none;
+}
+
+ul.soundList li button.playing span {
+    display: block;
+    background-color: rgba(162, 255, 162, 0.363);
 }
 /* -------- TODO: ADD MEDIA QUERIES ------- */
