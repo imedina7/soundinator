@@ -21,25 +21,65 @@ Sound.prototype.getBlobUrl = function () {
 Sound.prototype.play = function () {
   var player = new Audio();
   var el = document.getElementById('sound-'+this.id);
+  var canvas = document.getElementById('soundCanvas-'+this.id);
+  var canvasCtx = canvas.getContext('2d');
+  var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  var source = audioCtx.createMediaElementSource(player);
+  source.connect(audioCtx.destination);
+  var analyser = audioCtx.createAnalyser();
+  source.connect(analyser);
+  analyser.fftSize = 1024;
+  var bufferLength = analyser.fftSize;
+  var dataArray = new Float32Array(bufferLength);
+
   player.src = this.getBlobUrl();
   player.play().then(function(){
     this.playing = true;
   }.bind(this));
   player.onplaying = function(){
+    
     if (player != null) {
+      canvasCtx.clearRect(0,0,canvas.width, canvas.height);
+      drawVisual = requestAnimationFrame(arguments.callee);
+      analyser.getFloatTimeDomainData(dataArray);
+
+      // canvasCtx.fillStyle = 'rgb(200, 200, 200)';
+      // canvasCtx.fillRect(0, 0, canvas.width, canvas.height);
+      canvasCtx.lineWidth = 2;
+      canvasCtx.strokeStyle = 'rgb(200, 200, 200)';
+      canvasCtx.beginPath();
+
+      var sliceWidth = canvas.width * 1.0 / bufferLength;
+      var x = 0;
+
+      for(var i = 0; i < bufferLength; i++) {
+        
+        var y = canvas.height/2 * dataArray[i] + canvas.height/2;
+
+        if(i === 0) {
+          canvasCtx.moveTo(x, y);
+        } else {
+          canvasCtx.lineTo(x, y);
+        }
+        x += sliceWidth;
+      }
+
+      canvasCtx.lineTo(canvas.width, canvas.height/2);
+      canvasCtx.stroke();
+
       var span = el.getElementsByTagName('span')[0];
 
       span.style.width = player.currentTime / player.duration * 100 + '%';
       
-      setTimeout(arguments.callee,60);
+
     }
   }.bind(this);
   player.onended = function () {
+    canvasCtx.clearRect(0,0,canvas.width, canvas.height);
     this.playing = false;
     player = null;
   }.bind(this);
 }
-
 function b64toBlob(b64Data, contentType, sliceSize) {
   contentType = contentType || '';
   sliceSize = sliceSize || 512;

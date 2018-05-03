@@ -49,7 +49,7 @@
           <button class="soundButton" 
              :id="'sound-'+sound.id" 
              v-bind:class="{ 'playing' : sound.playing }" 
-             v-on:click="sound.play()"><span v-bind:style="{ 'width': sound.progress + '%'}"></span>{{sound.name}}</button>
+             v-on:click="sound.play()"><span v-bind:style="{ 'width': sound.progress + '%'}"></span>{{sound.name}}<canvas :id="'soundCanvas-'+sound.id"></canvas></button>
         </li>
       </ul>
     </div>
