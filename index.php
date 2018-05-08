@@ -6,7 +6,7 @@
   <title>Soundinator - The Real Botonera for The πbes</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="https://fonts.googleapis.com/css?family=Abel" rel="stylesheet">
-  <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="assets/css/fontawesome-all.min.css" rel="stylesheet" />
   <link rel="stylesheet" type="text/css" media="screen" href="assets/css/normalize.css" />
   <link rel="stylesheet" type="text/css" media="screen" href="assets/css/simplegrid.css" />
   <link rel="stylesheet" type="text/css" media="screen" href="assets/css/main.css" />
@@ -29,18 +29,19 @@
             <input type="submit" name="submit" id="submit" value="Login">
           </form>
         </li>
-        <li v-if="uploadDialog && loggedIn">
+        <li>
           <form enctype="multipart/form-data" v-on:submit.prevent="uploadFiles" id="uploadForm">
             <input type="hidden" name="MAX_FILE_SIZE" value="2000000" />
-            <input name="userfile[]" type="file" accept="audio/*, application/ogg" multiple/>
-            <input type="submit" value="Upload" />
+            <input name="userfile[]" type="file" accept="audio/*, application/ogg" id="file-upload" multiple/>
+            
+            <input v-if="uploadDialog && loggedIn" type="submit" value="Upload" />
           </form>
         </li>
         <li v-if="! loggedIn">
-          <a href="#" @click="loginform = !loginform">Log in</a>
+          <a href="#" @click="loginform = !loginform"><i class="fas fa-sign-in-alt"></i></a>
         </li>
-        <li v-if="loggedIn"><a href="#" @click="uploadDialog = !uploadDialog">Upload sound</a></li>
-        <li v-if="loggedIn"><a href="#" @click="logout()">Log out</a></li>
+        <li v-if="loggedIn"><a href="#" @click="uploadDialog = !uploadDialog"><label for="file-upload"><i class="fas fa-upload"></i></label></a></li>
+        <li v-if="loggedIn"><a href="#" @click="logout()"><i class="fas fa-sign-out-alt"></i></a></li>
       </ul>
     </div>
     <div class="columnas main-view">

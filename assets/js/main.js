@@ -25,6 +25,7 @@ Sound.prototype.play = function () {
   var canvasCtx = canvas.getContext('2d');
   var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
   var source = audioCtx.createMediaElementSource(player);
+  
   source.connect(audioCtx.destination);
   var analyser = audioCtx.createAnalyser();
   source.connect(analyser);
@@ -33,9 +34,11 @@ Sound.prototype.play = function () {
   var dataArray = new Float32Array(bufferLength);
 
   player.src = this.getBlobUrl();
+  
   player.play().then(function(){
     this.playing = true;
   }.bind(this));
+
   player.onplaying = function(){
     
     if (player != null) {
@@ -51,10 +54,10 @@ Sound.prototype.play = function () {
 
       var sliceWidth = canvas.width * 1.0 / bufferLength;
       var x = 0;
-
+      var waveRange = canvas.height/2;
       for(var i = 0; i < bufferLength; i++) {
         
-        var y = canvas.height/2 * dataArray[i] + canvas.height/2;
+        var y = waveRange * dataArray[i] + waveRange;
 
         if(i === 0) {
           canvasCtx.moveTo(x, y);
@@ -64,7 +67,7 @@ Sound.prototype.play = function () {
         x += sliceWidth;
       }
 
-      canvasCtx.lineTo(canvas.width, canvas.height/2);
+      canvasCtx.lineTo(canvas.width, waveRange);
       canvasCtx.stroke();
 
       var span = el.getElementsByTagName('span')[0];
