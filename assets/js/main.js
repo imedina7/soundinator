@@ -6,6 +6,7 @@ var Sound = function (name){
   this.blobUrl = null;
   this.playing = false;
   this.progress = 0;
+  this.tags = [];
 }
 
 Sound.prototype.isLoaded = function () {
@@ -26,9 +27,12 @@ Sound.prototype.play = function (audioCtx) {
   var source = audioCtx.createMediaElementSource(player);
   
   source.connect(audioCtx.destination);
+  
   var analyser = audioCtx.createAnalyser();
+  
   source.connect(analyser);
   analyser.fftSize = 1024;
+
   var bufferLength = analyser.fftSize;
   
   var dataArray = new Float32Array(bufferLength);
@@ -118,6 +122,7 @@ function b64toBlob(b64Data, contentType, sliceSize) {
       title: "Soundinator",
       audioContext : null,
       uploadDialog: false,
+      uploadButtonLabel: 'Upload',
       soundList: []
     },
     watch: {
@@ -237,6 +242,12 @@ function b64toBlob(b64Data, contentType, sliceSize) {
             console.log("Error, server responded: "+ error);
           });
         }
+      },
+      inputHasFiles: function () {
+        var input = document.getElementById('file-upload');
+        this.uploadButtonLabel = (input.files.length == 1) ? 'Upload sound' : 'Upload '+input.files.length+' sounds' ;
+        return input.files.length > 0;
+
       }
     },
     

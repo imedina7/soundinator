@@ -32,15 +32,15 @@
         <li>
           <form enctype="multipart/form-data" v-on:submit.prevent="uploadFiles" id="uploadForm">
             <input type="hidden" name="MAX_FILE_SIZE" value="2000000" />
-            <input name="userfile[]" type="file" accept="audio/*, application/ogg" id="file-upload" multiple/>
+            <input name="userfile[]" @change="uploadDialog = inputHasFiles()" type="file" accept="audio/*, application/ogg" id="file-upload" multiple/>
             
-            <input v-if="uploadDialog && loggedIn" type="submit" value="Upload" />
+            <input v-if="uploadDialog && loggedIn" type="submit" :value="uploadButtonLabel" />
           </form>
         </li>
         <li v-if="! loggedIn">
           <a href="#" @click="loginform = !loginform"><i class="fas fa-sign-in-alt"></i></a>
         </li>
-        <li v-if="loggedIn"><a href="#" @click="uploadDialog = !uploadDialog"><label for="file-upload"><i class="fas fa-upload"></i></label></a></li>
+        <li v-if="loggedIn"><a href="#"><label for="file-upload"><i class="fas fa-upload"></i></label></a></li>
         <li v-if="loggedIn"><a href="#" @click="logout()"><i class="fas fa-sign-out-alt"></i></a></li>
       </ul>
     </div>
