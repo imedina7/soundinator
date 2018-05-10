@@ -18,12 +18,11 @@ Sound.prototype.getBlobUrl = function () {
   }
 }
 
-Sound.prototype.play = function () {
+Sound.prototype.play = function (audioCtx) {
   var player = new Audio();
   var el = document.getElementById('sound-'+this.id);
   var canvas = document.getElementById('soundCanvas-'+this.id);
   var canvasCtx = canvas.getContext('2d');
-  var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
   var source = audioCtx.createMediaElementSource(player);
   
   source.connect(audioCtx.destination);
@@ -31,6 +30,7 @@ Sound.prototype.play = function () {
   source.connect(analyser);
   analyser.fftSize = 1024;
   var bufferLength = analyser.fftSize;
+  
   var dataArray = new Float32Array(bufferLength);
 
   player.src = this.getBlobUrl();
@@ -116,13 +116,13 @@ function b64toBlob(b64Data, contentType, sliceSize) {
       loggedIn: false,
       loginform: false,
       title: "Soundinator",
+      audioContext : null,
       uploadDialog: false,
       soundList: []
     },
     watch: {
       soundList: {
         handler(val){
-          console.log(val);
         },
         deep: true
       }
@@ -131,7 +131,7 @@ function b64toBlob(b64Data, contentType, sliceSize) {
       onSubmit: function(event){
         var self = this;
         var fdata = new FormData(document.getElementById("loginForm"));
-    
+        
         var req = new Request("/login.php",{ method: "POST", body: fdata});
         fetch(req).then(function (response){
           return response.json();
@@ -202,6 +202,11 @@ function b64toBlob(b64Data, contentType, sliceSize) {
           });
         }
       },
+      playSound : function (sound) {
+        if (this.audioContext == null)
+          this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        sound.play(this.audioContext);
+      },
       uploadFiles: function(event){
         session_id = localStorage.getItem("session_id");
 
@@ -226,6 +231,7 @@ function b64toBlob(b64Data, contentType, sliceSize) {
                 console.log("--->'"+file+"'");
               })
               self.loadSounds();
+              self.uploadDialog = false;
             }
           }).catch(function(error){
             console.log("Error, server responded: "+ error);
@@ -233,6 +239,7 @@ function b64toBlob(b64Data, contentType, sliceSize) {
         }
       }
     },
+    
     mounted(){
       this.loadSounds();
     }
