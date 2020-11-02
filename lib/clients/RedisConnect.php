@@ -28,7 +28,7 @@ class RedisConnect {
 
     } else {
 
-      $rdis = new Predis\Client(getenv('REDISCLOUD_URL'));
+      $rdis = new Predis\Client(getenv('REDIS_URL'));
 
       static::$client = $rdis;
 
